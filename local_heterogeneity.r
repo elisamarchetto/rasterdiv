@@ -3,10 +3,10 @@ library(rasterdiv)
 library(RStoolbox)
 library(ggplot2)
 
-
+# set working directory
 # sentinel-2, instrument:MSI,31/07/2020
 # image elabrated with SNAP: bands 2,3,4,8
-majella <- stack("subset_0_of_S2A_MSIL1C_20200731T095041_N0209_R079_T33TVG_20200731T102505.tif")
+# majella <- stack("subset_0_of_S2A_MSIL1C_20200731T095041_N0209_R079_T33TVG_20200731T102505.tif")
 
 # RGB images
 ggRGB(majella, r = 4, g = 2, b = 3,stretch = "lin") + ggtitle("False colors(NIR,GREEN,RED), Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(0.9)))
