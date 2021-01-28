@@ -2,6 +2,7 @@ library(raster)
 library(rasterdiv)
 library(RStoolbox)
 library(ggplot2)
+library(scico)
 
 # set working directory
 # sentinel-2, instrument:MSI,31/07/2020
@@ -42,15 +43,15 @@ parao20 <- paRao(ndvi_mjrs, dist_m="euclidean", window=9, alpha=20, method="clas
 parao100 <- paRao(ndvi_mjrs, dist_m="euclidean", window=9, alpha=100, method="classic", rasterOut=TRUE, lambda=0, na.tolerance=0.9, rescale=FALSE, diag=TRUE,simplify=1, np=3,cluster.type="SOCK", debugging=FALSE)
 
 # indices values visualisation 
-ggR(sha, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Shannon's entropy") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))
-ggR(bepar, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Berger-Parker index") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
-ggR(pielou, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Pielou's evenness index") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5)) 
-ggR(renyi5, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Rényi's index alpha=5") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
-ggR(renyi50, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Rényi's index alpha=50") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
-ggR(rao, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Rao's Q heterogeneity index") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
-ggR(parao3, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Parametric Rao's Q alpha=3") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
-ggR(parao20, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Parametric Rao's Q alpha=20") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
-ggR(parao100, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Parametric Rao's Q alpha=100") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))   
+ggR(sha, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Shannon's entropy") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))
+ggR(bepar, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Berger-Parker index") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
+ggR(pielou, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Pielou's evenness index") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5)) 
+ggR(renyi5, geom_raster = TRUE) +scale_fill_scico(palette = "hawaii") + ggtitle("Rényi's index alpha=5") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
+ggR(renyi50, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Rényi's index alpha=50") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
+ggR(rao, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Rao's Q heterogeneity index") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
+ggR(parao3, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Parametric Rao's Q alpha=3") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
+ggR(parao20, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Parametric Rao's Q alpha=20") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
+ggR(parao100, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Parametric Rao's Q alpha=100") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))   
 
 # second crop 
 ext <- c(422000,434000,4655000,4676000)
@@ -75,7 +76,7 @@ renyi70 <- Renyi(ndvi_m_as, window=9, alpha=70, base=exp(1), rasterOut=TRUE, np=
 rao_m_a <- Rao(ndvi_m_as, dist_m="euclidean", window=9, rasterOut = TRUE, mode="classic",lambda=0, shannon=FALSE, rescale=FALSE, na.tolerance=0.9, simplify=3, np=3, cluster.type="SOCK", debugging=FALSE)
 
 # indices values visualisation 
-ggR(renyi1, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Rényi's index alpha=1") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))
-ggR(renyi70, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Rényi's index alpha=70") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))
-ggR(rao_m_a, geom_raster = TRUE) + scale_fill_gradientn(name = "value", colours = rainbow(10)) + ggtitle("Rao's Q heterogeneity index") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
+ggR(renyi1, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Rényi's index alpha=1") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))
+ggR(renyi70, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Rényi's index alpha=70") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))
+ggR(rao_m_a, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Rao's Q heterogeneity index") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
 
