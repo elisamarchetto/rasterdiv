@@ -3,6 +3,7 @@ library(rasterdiv)
 library(RStoolbox)
 library(ggplot2)
 library(scico)
+library(GGally)
 
 # set working directory
 # sentinel-2, instrument:MSI,31/07/2020
@@ -53,7 +54,14 @@ ggR(parao3, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle
 ggR(parao20, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Parametric Rao's Q alpha=20") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
 ggR(parao100, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Parametric Rao's Q alpha=100") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))   
 
-# second crop 
+# Correlation rasterdiv heterogeneity metrics
+metrics <- stack(sha, bepar, pielou, renyi5[[1]], rao, parao3[[1]])
+points <- sampleRandom(metrics, size=1000, sp=TRUE)
+df <- data.frame(points)
+df_s <- subset(df, select = -c(x, y, optional))
+corr <- ggpairs(df_s, upper = list(continuous = wrap(ggally_cor, displayGrid = FALSE)), lower = list(continuous = wrap("points", alpha = 0.1)), columnLabels = c("Shannon", "Berger-Parker", "Pielou", "Rényi5", "Rao", "paRao3"), title= "Correlation of rasterdiv heterogeneity metrics ")
+
+# second crop
 ext <- c(422000,434000,4655000,4676000)
 m_amaro <- crop(majella_crop,ext)
 
@@ -79,4 +87,5 @@ rao_m_a <- Rao(ndvi_m_as, dist_m="euclidean", window=9, rasterOut = TRUE, mode="
 ggR(renyi1, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Rényi's index alpha=1") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))
 ggR(renyi70, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Rényi's index alpha=70") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))
 ggR(rao_m_a, geom_raster = TRUE) + scale_fill_scico(palette = "hawaii") + ggtitle("Rao's Q heterogeneity index") + theme_light() + theme(plot.title.position ='plot', plot.title = element_text(hjust = 0.5))  
+
 
