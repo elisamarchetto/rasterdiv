@@ -11,7 +11,7 @@ library(GGally)
 # majella <- stack("subset_0_of_S2A_MSIL1C_20200731T095041_N0209_R079_T33TVG_20200731T102505.tif")
 
 # RGB images
-ggRGB(majella, r = 4, g = 2, b = 3,stretch = "lin") + ggtitle("False colors(NIR,GREEN,RED), Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(0.9)))
+ggRGB(majella, r = 4, g = 3, b = 2,stretch = "lin") + ggtitle("False colors(NIR,RED,GREEN), Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(0.9)))
 ggRGB(majella, r = 3, g = 2, b = 1,stretch = "lin") + ggtitle("Natural colors(RED,GREEN,BLUE), Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(0.9)))
 
 # First crop on the original sentinel image
@@ -26,7 +26,7 @@ ndvi_mjrs <- stretch(ndvi_mjr, minv=0, maxv=255)
 storage.mode(ndvi_mjrs[]) = "integer"
 
 # RGB images
-ggRGB(majella_crop, r = 4, g = 2, b = 3,stretch = "lin") + ggtitle("False colors Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(0.9))) 
+ggRGB(majella_crop, r = 4, g = 3, b = 2,stretch = "lin") + ggtitle("False colors Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(0.9))) 
 ggRGB(majella_crop, r = 3, g = 2, b = 1,stretch = "lin") + ggtitle("Natural colors Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(0.9))) 
 
 # NDVI visualisation
@@ -71,7 +71,7 @@ ndvi_m_as <- stretch(ndvi_m_a, minv=0, maxv=255)
 storage.mode(ndvi_m_as[]) = "integer" 
 
 # RGB images
-ggRGB(m_amaro, r = 4, g = 2, b = 3,stretch = "lin") + ggtitle("False colors Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(1))) 
+ggRGB(m_amaro, r = 4, g = 3, b = 2,stretch = "lin") + ggtitle("False colors Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(1))) 
 ggRGB(m_amaro, r = 3, g = 2, b = 1,stretch = "lin") + ggtitle("Natural colors Sentinel-2 image (10m)") + theme_light() + theme(plot.title = element_text(size = rel(1))) 
 
 # NDVI visualisation  
